@@ -14,8 +14,8 @@ public class ElectronicStoreApp extends Application {
     }
 
     private void showMultiPageLogin() {
-        MultiPageSignUp multiLogIn = new MultiPageSignUp();
-        Scene loginScene = multiLogIn.createScene(primaryStage);
+        MultiPageSignUp multiLogIn = new MultiPageSignUp(primaryStage); // Pass primaryStage here
+        Scene loginScene = multiLogIn.createScene();
         primaryStage.setScene(loginScene);
         primaryStage.setTitle("Login Page");
         primaryStage.show();
@@ -25,3 +25,4 @@ public class ElectronicStoreApp extends Application {
         launch(args);
     }
 }
+
