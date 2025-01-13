@@ -57,11 +57,11 @@ public class MultiPageSignUp {
     }
 
     private void showSignUpPage() {
-        SignUpPage signUpPage = new SignUpPage();
+        SignUpPage signUpPage = new SignUpPage(selectedUserType);
         Scene scene = signUpPage.createScene(primaryStage);
-        signUpPage.setUserType(selectedUserType);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Select how you would like to sign in as.");
         primaryStage.show();
     }
 }
+

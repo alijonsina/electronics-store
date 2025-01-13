@@ -12,7 +12,7 @@ public class SignUpPage {
     private Stage primaryStage;
     private String userType;
 
-    public void setUserType(String userType) {
+    public SignUpPage(String userType) {
         this.userType = userType;
     }
 
@@ -46,6 +46,17 @@ public class SignUpPage {
                 String email = emailField.getText();
                 if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
                     throw new EmptyFieldException();
+                } else if(true) {
+                    messageLabel.setText("Sign Up Successful");
+                    messageLabel.setStyle("-fx-text-fill: green");
+
+
+                } else if(false) {
+                    messageLabel.setText("Username does not exist.");
+                    messageLabel.setStyle("-fx-text-fill: red");
+                } else {
+                    messageLabel.setText("Wrong password.");
+                    messageLabel.setStyle("-fx-text-fill: red");
                 }
             } catch (EmptyFieldException ex) {
                 messageLabel.setText("All fields are required!");
@@ -55,9 +66,7 @@ public class SignUpPage {
 
         // Back Button to return to the user type selection screen
         Button backButton = new Button("Back");
-        backButton.setOnAction(e -> {
-            showMultiPageLogin();
-        });
+        backButton.setOnAction(e -> showMultiPageLogin());
 
         // Layout the elements
         VBox layout = new VBox(10, titleLabel, usernameField, passwordField, emailField, signUpButton, backButton, messageLabel);
@@ -79,5 +88,14 @@ public class SignUpPage {
         primaryStage.setScene(loginScene);
         primaryStage.setTitle("Login Page");
         primaryStage.show();
+    }
+
+    public static void wait(int ms)
+    {
+        try {
+            Thread.sleep(ms);
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
