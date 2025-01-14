@@ -29,7 +29,7 @@ public class MultiPageSignUp {
 
         // Set actions for each button
         adminButton.setOnAction(e -> {
-            selectedUserType = "Admin";
+            selectedUserType = "Administrator";
             PageNavigation.showSignUpPage(selectedUserType);
         });
 

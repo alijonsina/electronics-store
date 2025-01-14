@@ -27,7 +27,7 @@ public final class PageNavigation {
         SignUpPage signUpPage = new SignUpPage(selectedUserType);
         Scene scene = signUpPage.createScene(primaryStage);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Sign Up as " + selectedUserType);
+        primaryStage.setTitle("Log in as " + selectedUserType);
         primaryStage.show();
     }
 
@@ -35,8 +35,8 @@ public final class PageNavigation {
         switch (userType) {
             case "Cashier" -> showCashierMenu();
             case "Manager" -> showManagerMenu();
-            //case "Administrator" -> showAdminMenu();
-            default -> showCashierMenu(); //If something wrong happens, automatically sign in as cashier to prevent any security breaches.
+            case "Administrator" -> showAdminMenu();
+            default -> showCashierMenu();//If something wrong happens, automatically sign in as cashier to prevent any security breaches.
         }
     }
 
@@ -50,9 +50,17 @@ public final class PageNavigation {
 
     public static void showManagerMenu() {
         ManagerMainMenu manMainMenu = new ManagerMainMenu();
-        //Scene scene = manMainMenu.createScene(primaryStage);
-        //primaryStage.setScene(scene);
-        primaryStage.setTitle("Cashier");
+        Scene scene = manMainMenu.createScene(primaryStage);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Manager");
+        primaryStage.show();
+    }
+
+    public static void showAdminMenu() {
+        AdministratorMainMenu adminMainMenu = new AdministratorMainMenu();
+        Scene scene = adminMainMenu.createScene(primaryStage);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Administrator");
         primaryStage.show();
     }
 }

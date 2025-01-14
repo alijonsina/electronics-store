@@ -1,16 +1,15 @@
 package com.example.javaproject;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class CashierMainMenu {
-
-    private Stage primaryStage;
+public class AdministratorMainMenu {
 
     public Scene createScene(Stage primaryStage) {
 
@@ -35,10 +34,13 @@ public class CashierMainMenu {
 
         // Create three buttons for center-left, center, and center-right
         Button leftButton = new Button("Left Button");
-        Button centerButton = new Button("Center Button");
         Button rightButton = new Button("Right Button");
 
+        // Add buttons in a horizontal choice bar
+        HBox buttons = new HBox(leftButton, rightButton);
+
         // Create the layout using BorderPane
+
         BorderPane borderPane = new BorderPane();
 
         // Add padding to the BorderPane (push contents away from the borders)
@@ -48,9 +50,7 @@ public class CashierMainMenu {
         borderPane.setTop(menuButton);
 
         // Place the buttons in the appropriate positions
-        borderPane.setLeft(leftButton);   // Center-left button
-        borderPane.setCenter(centerButton);  // Center button
-        borderPane.setRight(rightButton);  // Center-right button
+        borderPane.setCenter(buttons);  // Center button
 
         // Set the scene and stage
         Scene scene = new Scene(borderPane, 400, 200);
