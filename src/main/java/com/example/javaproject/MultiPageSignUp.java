@@ -17,34 +17,34 @@ public class MultiPageSignUp {
         this.primaryStage = primaryStage;
     }
 
-    public Scene createScene() {
+    public Scene createScene(Stage primaryStage) {
         // Title Label
         Label titleLabel = new Label("Select User Type");
         titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
 
         // Buttons for User Types
         Button adminButton = new Button("Admin");
-        Button userButton = new Button("User");
-        Button guestButton = new Button("Guest");
+        Button managerButton = new Button("Manager");
+        Button cashierButton = new Button("Cashier");
 
         // Set actions for each button
         adminButton.setOnAction(e -> {
             selectedUserType = "Admin";
-            showSignUpPage();
+            PageNavigation.showSignUpPage(selectedUserType);
         });
 
-        userButton.setOnAction(e -> {
-            selectedUserType = "User";
-            showSignUpPage();
+        managerButton.setOnAction(e -> {
+            selectedUserType = "Manager";
+            PageNavigation.showSignUpPage(selectedUserType);
         });
 
-        guestButton.setOnAction(e -> {
-            selectedUserType = "Guest";
-            showSignUpPage();
+        cashierButton.setOnAction(e -> {
+            selectedUserType = "Cashier";
+            PageNavigation.showSignUpPage(selectedUserType);
         });
 
         // Layout
-        VBox layout = new VBox(15, titleLabel, adminButton, userButton, guestButton);
+        VBox layout = new VBox(15, titleLabel, cashierButton, managerButton, adminButton);
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(20));
 
@@ -56,12 +56,5 @@ public class MultiPageSignUp {
         return scene;
     }
 
-    private void showSignUpPage() {
-        SignUpPage signUpPage = new SignUpPage(selectedUserType);
-        Scene scene = signUpPage.createScene(primaryStage);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Select how you would like to sign in as.");
-        primaryStage.show();
-    }
 }
 

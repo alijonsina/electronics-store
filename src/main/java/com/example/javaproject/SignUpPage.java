@@ -30,9 +30,6 @@ public class SignUpPage {
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Password");
 
-        TextField emailField = new TextField();
-        emailField.setPromptText("Email");
-
         Button signUpButton = new Button("Sign Up");
         signUpButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10px;");
 
@@ -43,21 +40,17 @@ public class SignUpPage {
             try {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
-                String email = emailField.getText();
-                if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
+                if (username.isEmpty() || password.isEmpty()) {
                     throw new EmptyFieldException();
-                } else if(true) {
-                    messageLabel.setText("Sign Up Successful");
-                    messageLabel.setStyle("-fx-text-fill: green");
-
-
-                } else if(false) {
-                    messageLabel.setText("Username does not exist.");
-                    messageLabel.setStyle("-fx-text-fill: red");
                 } else {
-                    messageLabel.setText("Wrong password.");
-                    messageLabel.setStyle("-fx-text-fill: red");
+                    switch ("Sign Up Authorized") {
+                        case "User does not exist" -> {messageLabel.setText("User does not exist"); messageLabel.setStyle("-fx-text-fill: red;");}
+                        case "Incorrect Password" -> {messageLabel.setText("Incorrect Password"); messageLabel.setStyle("-fx-text-fill: red;");}
+                        case "Sign Up Authorized" -> PageNavigation.showMainMenu(userType);
+                        default -> messageLabel.setText("Something went wrong");
+                    };
                 }
+
             } catch (EmptyFieldException ex) {
                 messageLabel.setText("All fields are required!");
                 messageLabel.setStyle("-fx-text-fill: red;");
@@ -66,10 +59,10 @@ public class SignUpPage {
 
         // Back Button to return to the user type selection screen
         Button backButton = new Button("Back");
-        backButton.setOnAction(e -> showMultiPageLogin());
+        backButton.setOnAction(e -> PageNavigation.showMultiPageSignUp());
 
         // Layout the elements
-        VBox layout = new VBox(10, titleLabel, usernameField, passwordField, emailField, signUpButton, backButton, messageLabel);
+        VBox layout = new VBox(10, titleLabel, usernameField, passwordField, signUpButton, backButton, messageLabel);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
 
@@ -79,15 +72,7 @@ public class SignUpPage {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        return scene;  // Return the scene for possible future use
-    }
-
-    private void showMultiPageLogin() {
-        MultiPageSignUp multiLogIn = new MultiPageSignUp(primaryStage); // Pass primaryStage here
-        Scene loginScene = multiLogIn.createScene();
-        primaryStage.setScene(loginScene);
-        primaryStage.setTitle("Login Page");
-        primaryStage.show();
+        return scene;
     }
 
     public static void wait(int ms)
@@ -98,4 +83,5 @@ public class SignUpPage {
             Thread.currentThread().interrupt();
         }
     }
+
 }
