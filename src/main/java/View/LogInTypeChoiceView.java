@@ -1,5 +1,6 @@
-package com.example.javaproject;
+package View;
 
+import Controller.LoginTypeControl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,13 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MultiPageSignUp {
+public class LogInTypeChoiceView {
 
     private Stage primaryStage; // To switch between scenes
     private String selectedUserType; // Store the selected user type
 
     // Constructor to initialize primaryStage
-    public MultiPageSignUp(Stage primaryStage) {
+    public LogInTypeChoiceView(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
@@ -29,18 +30,18 @@ public class MultiPageSignUp {
 
         // Set actions for each button
         adminButton.setOnAction(e -> {
-            selectedUserType = "Administrator";
-            PageNavigation.showSignUpPage(selectedUserType);
+            LoginTypeControl control = new LoginTypeControl();
+            control.handleLoginType("Admin");
         });
 
         managerButton.setOnAction(e -> {
-            selectedUserType = "Manager";
-            PageNavigation.showSignUpPage(selectedUserType);
+            LoginTypeControl control = new LoginTypeControl();
+            control.handleLoginType("Manager");
         });
 
         cashierButton.setOnAction(e -> {
-            selectedUserType = "Cashier";
-            PageNavigation.showSignUpPage(selectedUserType);
+            LoginTypeControl control = new LoginTypeControl();
+            control.handleLoginType("Cashier");
         });
 
         // Layout

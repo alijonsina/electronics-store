@@ -1,4 +1,4 @@
-package com.example.javaproject;
+package Exceptions;
 
 public class EmptyFieldException extends Exception{
     public EmptyFieldException() {

@@ -1,5 +1,6 @@
-package com.example.javaproject;
+package Main;
 
+import View.PageNavigation;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -10,11 +11,10 @@ public class ElectronicStoreApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         PageNavigation.setPrimaryStage(primaryStage);
-        PageNavigation.showMultiPageSignUp();
+        PageNavigation.showMultiLogInView();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
-

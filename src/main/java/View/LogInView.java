@@ -1,5 +1,7 @@
-package com.example.javaproject;
+package View;
 
+import Controller.LogInControl;
+import Exceptions.EmptyFieldException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -7,21 +9,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SignUpPage {
+public class LogInView {
 
-    private Stage primaryStage;
     private String userType;
 
-    public SignUpPage(String userType) {
+    public LogInView(String userType) {
         this.userType = userType;
     }
 
     // Create the sign-up scene
     public Scene createScene(Stage primaryStage) {
-        this.primaryStage = primaryStage;  // Assign the primaryStage
-
         // Create the UI elements
-        Label titleLabel = new Label("Sign Up as " + (userType != null ? userType : "User"));
+        Label titleLabel = new Label("Log In as " + (userType != null ? userType : "User"));
         titleLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
 
         TextField usernameField = new TextField();
@@ -30,7 +29,7 @@ public class SignUpPage {
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Password");
 
-        Button signUpButton = new Button("Sign Up");
+        Button signUpButton = new Button("Log In");
         signUpButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10px;");
 
         Label messageLabel = new Label();
@@ -40,15 +39,12 @@ public class SignUpPage {
             try {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
-                if (username.isEmpty() || password.isEmpty()) {
-                    throw new EmptyFieldException();
-                } else {
-                    switch ("Sign Up Authorized") {
-                        case "User does not exist" -> {messageLabel.setText("User does not exist"); messageLabel.setStyle("-fx-text-fill: red;");}
-                        case "Incorrect Password" -> {messageLabel.setText("Incorrect Password"); messageLabel.setStyle("-fx-text-fill: red;");}
-                        case "Sign Up Authorized" -> PageNavigation.showMainMenu(userType);
-                        default -> messageLabel.setText("Something went wrong");
-                    };
+                LogInControl controller = new LogInControl(userType);
+                String result = controller.handleSignUp(username, password);
+
+                if (result != null) {
+                    messageLabel.setText(result);
+                    messageLabel.setStyle("-fx-text-fill: red;");
                 }
 
             } catch (EmptyFieldException ex) {
@@ -59,7 +55,7 @@ public class SignUpPage {
 
         // Back Button to return to the user type selection screen
         Button backButton = new Button("Back");
-        backButton.setOnAction(e -> PageNavigation.showMultiPageSignUp());
+        backButton.setOnAction(e -> PageNavigation.showMultiLogInView());
 
         // Layout the elements
         VBox layout = new VBox(10, titleLabel, usernameField, passwordField, signUpButton, backButton, messageLabel);
@@ -73,15 +69,6 @@ public class SignUpPage {
         primaryStage.show();
 
         return scene;
-    }
-
-    public static void wait(int ms)
-    {
-        try {
-            Thread.sleep(ms);
-        } catch(InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
     }
 
 }

@@ -1,5 +1,6 @@
-package com.example.javaproject;
+package View;
 
+import Controller.LogOutControl;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
@@ -8,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
 import javafx.stage.Stage;
 
-public class CashierMainMenu {
+public class CashierMainMenuView {
 
     private Stage primaryStage;
 
@@ -27,7 +28,8 @@ public class CashierMainMenu {
         });
 
         logOut.setOnAction(e -> {
-            PageNavigation.showMultiPageSignUp();
+            LogOutControl controller = new LogOutControl();
+            controller.handleLogOut();
         });
 
         // Add MenuItems to the MenuButton
