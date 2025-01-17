@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 public class LogInTypeChoiceView {
 
     private Stage primaryStage; // To switch between scenes
-    private String selectedUserType; // Store the selected user type
 
     // Constructor to initialize primaryStage
     public LogInTypeChoiceView(Stage primaryStage) {
@@ -51,9 +50,6 @@ public class LogInTypeChoiceView {
 
         // Scene and Stage
         Scene scene = new Scene(layout, 400, 300);
-        primaryStage.setTitle("User Type Selection");
-        primaryStage.setScene(scene);
-        primaryStage.show();
         return scene;
     }
 

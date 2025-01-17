@@ -64,9 +64,6 @@ public class LogInView {
 
         // Set up the scene
         Scene scene = new Scene(layout, 400, 300);
-        primaryStage.setTitle("Sign Up Page");
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
         return scene;
     }

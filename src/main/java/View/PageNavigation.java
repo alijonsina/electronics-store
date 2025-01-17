@@ -1,5 +1,6 @@
 package View;
 
+import Model.Cashier;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -61,6 +62,30 @@ public final class PageNavigation {
         Scene scene = adminMainMenu.createScene(primaryStage);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Administrator");
+        primaryStage.show();
+    }
+
+    public static void showCashierInfo(Cashier cashier) {
+        CashierInfoView cashierInfo = new CashierInfo(cashier);
+        Scene scene = cashierInfo.createScene(primaryStage);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(cashier.username);
+        primaryStage.show();
+    }
+
+    public static void showCashierInfo(Manager manager) {
+        ManagerInfoView managerInfo = new ManagerInfo(manager);
+        Scene scene = managerInfo.createScene(primaryStage);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(manager.username);
+        primaryStage.show();
+    }
+
+    public static void showCashierInfo(Administrator admin) {
+        AdministratorInfoView adminInfo = new AdmnistratorInfo(admin);
+        Scene scene = adminInfo.createScene(primaryStage);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(admin.username);
         primaryStage.show();
     }
 }

@@ -1,6 +1,6 @@
 package View;
 
-import Controller.LogOutControl;
+import Controller.CashierMainMenuControl;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 public class ManagerMainMenuView {
 
-    private Stage primaryStage;
 
     public Scene createScene(Stage primaryStage) {
 
@@ -29,7 +28,7 @@ public class ManagerMainMenuView {
         });
 
         logOut.setOnAction(e -> {
-            LogOutControl controller = new LogOutControl();
+            CashierMainMenuControl controller = new CashierMainMenuControl();
             controller.handleLogOut();
         });
 
@@ -58,9 +57,6 @@ public class ManagerMainMenuView {
 
         // Set the scene and stage
         Scene scene = new Scene(borderPane, 400, 200);
-        primaryStage.setTitle("User Dropdown Menu Page");
-        primaryStage.setScene(scene);
-        primaryStage.show();
         return scene;
     }
 }

@@ -1,17 +1,19 @@
 package View;
 
-import Controller.LogOutControl;
+import Controller.CashierMainMenuControl;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class CashierMainMenuView {
 
-    private Stage primaryStage;
+    private CashierMainMenuControl controller = new CashierMainMenuControl();
 
     public Scene createScene(Stage primaryStage) {
 
@@ -24,11 +26,10 @@ public class CashierMainMenuView {
 
         // Add action handlers
         viewUserInfo.setOnAction(e -> {
-            System.out.println("Viewing user info...");
+
         });
 
         logOut.setOnAction(e -> {
-            LogOutControl controller = new LogOutControl();
             controller.handleLogOut();
         });
 
@@ -36,29 +37,26 @@ public class CashierMainMenuView {
         menuButton.getItems().addAll(viewUserInfo, logOut);
 
         // Create three buttons for center-left, center, and center-right
-        Button leftButton = new Button("Left Button");
-        Button centerButton = new Button("Center Button");
-        Button rightButton = new Button("Right Button");
+        Button createBillButton = new Button("Create a New Bill");
+        Button viewBillsButton = new Button("View Today's Bills");
 
         // Create the layout using BorderPane
         BorderPane borderPane = new BorderPane();
 
-        // Add padding to the BorderPane (push contents away from the borders)
-        borderPane.setPadding(new Insets(20)); // Adds 20 pixels of padding on all sides
+        // Create button layout using VBox
+        HBox hbox = new HBox(15,  createBillButton, viewBillsButton);
 
         // Place the MenuButton in the top-left corner
         borderPane.setTop(menuButton);
 
-        // Place the buttons in the appropriate positions
-        borderPane.setLeft(leftButton);   // Center-left button
-        borderPane.setCenter(centerButton);  // Center button
-        borderPane.setRight(rightButton);  // Center-right button
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setPadding(new Insets(20));
+
+        borderPane.setCenter(hbox);
 
         // Set the scene and stage
-        Scene scene = new Scene(borderPane, 400, 200);
-        primaryStage.setTitle("User Dropdown Menu Page");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        Scene scene = new Scene(borderPane, 300, 200);
+
         return scene;
     }
 }
