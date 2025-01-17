@@ -1,5 +1,6 @@
 package View;
 
+import Model.Administrator;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,17 +13,17 @@ public class AdministratorInfoView {
     private Administrator administrator;
 
 
-    public CashierInfoView(Administrator administrator, ) {
+    public AdministratorInfoView(Administrator administrator) {
         this.administrator = administrator;
     }
 
     public Scene createScene(Stage primaryStage) {
 
-        Label nameLabel = new Label("Name: " + administrator.name + administrator.surname);
-        Label emailLabel = new Label("E-mail: " + administrator.email);
-        Label dateOfBirthLabel = new Label("Born: " + administrator.dateOfBirth.getDay() + "/" + administrator.dateOfBirth.getMonth() + "/" + administrator.dateOfBirth.getYear());
-        Label phoneNrLabel = new Label(administrator.phoneNr + "");
-        Label salaryLabel = new Label(administrator.salary + "");
+        Label nameLabel = new Label("Name: " + administrator.getName() + administrator.getSurname());
+        Label emailLabel = new Label("E-mail: " + administrator.getEmail());
+        Label dateOfBirthLabel = new Label("Born: " + administrator.getDateOfBirth().getDay() + "/" + administrator.getDateOfBirth().getMonth() + "/" + administrator.getDateOfBirth().getYear());
+        Label phoneNrLabel = new Label(administrator.getPhoneNr() + "");
+        Label salaryLabel = new Label(administrator.getSalary() + "");
 
         Button changePasswordButton = new Button("Change Password");
         Button backButton = new Button("Back");

@@ -1,5 +1,6 @@
 package View;
 
+import Model.Manager;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,17 +12,17 @@ public class ManagerInfoView {
     private Manager manager;
 
 
-    public CashierInfoView(Manager manager) {
-        this.Manager = manager;
+    public ManagerInfoView(Manager manager) {
+        this.manager = manager;
     }
 
     public Scene createScene(Stage primaryStage) {
 
-        Label nameLabel = new Label("Name: " + manager.name + manager.surname);
-        Label emailLabel = new Label("E-mail: " + manager.email);
-        Label dateOfBirthLabel = new Label("Born: " + manager.dateOfBirth.getDay() + "/" + manager.dateOfBirth.getMonth() + "/" + manager.dateOfBirth.getYear());
-        Label phoneNrLabel = new Label(manager.phoneNr + "");
-        Label salaryLabel = new Label(manager.salary + "");
+        Label nameLabel = new Label("Name: " + manager.getName() + manager.getSurname());
+        Label emailLabel = new Label("E-mail: " + manager.getEmail());
+        Label dateOfBirthLabel = new Label("Born: " + manager.getDateOfBirth().getDay() + "/" + manager.getDateOfBirth().getMonth() + "/" + manager.getDateOfBirth().getYear());
+        Label phoneNrLabel = new Label(manager.getPhoneNr() + "");
+        Label salaryLabel = new Label(manager.getSalary() + "");
 
         Button changePasswordButton = new Button("Change Password");
         Button backButton = new Button("Back");

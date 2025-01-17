@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.Cashier;
+
 import View.PageNavigation;
 
 public class CashierMainMenuControl {

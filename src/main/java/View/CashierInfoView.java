@@ -1,5 +1,6 @@
 package View;
 
+import Model.Cashier;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,18 +13,18 @@ public class CashierInfoView {
     private Cashier cashier;
 
 
-    public CashierInfoView(Cashier cashier, ) {
+    public CashierInfoView(Cashier cashier) {
         this.cashier = cashier;
     }
 
     public Scene createScene(Stage primaryStage) {
 
-        Label sectorLabel = new Label("Sector:" + cashier.sectorCode);
-        Label nameLabel = new Label("Name: " + cashier.name + cashier.surname);
-        Label emailLabel = new Label("E-mail: " + cashier.email);
-        Label dateOfBirthLabel = new Label("Born: " + cashier.dateOfBirth.getDay() + "/" + cashier.dateOfBirth.getMonth() + "/" + cashier.dateOfBirth.getYear());
-        Label phoneNrLabel = new Label(cashier.phoneNr + "");
-        Label salaryLabel = new Label(cashier.salary + "");
+        Label sectorLabel = new Label("Sector:" + cashier.getSectorCode());
+        Label nameLabel = new Label("Name: " + cashier.getName() + cashier.getSurname());
+        Label emailLabel = new Label("E-mail: " + cashier.getEmail());
+        Label dateOfBirthLabel = new Label("Born: " + cashier.getDateOfBirth().getDay() + "/" + cashier.getDateOfBirth().getMonth() + "/" + cashier.getDateOfBirth().getYear());
+        Label phoneNrLabel = new Label(cashier.getPhoneNr() + "");
+        Label salaryLabel = new Label(cashier.getSalary() + "");
 
         Button changePasswordButton = new Button("Change Password");
         Button backButton = new Button("Back");
