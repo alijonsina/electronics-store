@@ -11,15 +11,16 @@ public class Item implements Serializable {
     private int cost;
     private int retailPrice;
     private int sectorCode;
-    private int id;
+    private int sid;
+    private int nrOfStock;
 
-    public Item(String name, int itemID, int cost, int retailPrice, int sectorCode, int id) {
+    public Item(String name, int itemID, int cost, int retailPrice, int sectorCode, int sid) {
         this.name = name;
         this.itemID = itemID;
         this.cost = cost;
         this.retailPrice = retailPrice;
         this.sectorCode = sectorCode;
-        this.id = id;
+        this.sid = sid;
     }
 
     public String getName() {return name;}
@@ -32,6 +33,8 @@ public class Item implements Serializable {
     public void setRetailPrice(int retailPrice) {this.retailPrice = retailPrice;}
     public int getSectorCode() {return sectorCode;}
     public void setSectorCode(int sectorCode) {this.sectorCode = sectorCode;}
-    public int getId() {return id;}
-    public void setId(int id) {this.id = id;}
+    public int getSId() {return sid;}
+    public void setSId(int sid) {this.sid = sid;}
+    public int getNrOfStock() {return nrOfStock;}
+    public void setNrOfStock(int nrOfStock) {this.nrOfStock = nrOfStock;}
 }
