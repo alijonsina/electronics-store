@@ -38,7 +38,7 @@ public final class PageNavigation {
         switch (userType) {
             case "Cashier" -> showCashierMenuView();
             case "Manager" -> showManagerMenuView();
-            case "Administrator" -> showAdminMenuView();
+            case "Administrator" -> showAdministratorMenuView();
             default -> showCashierMenuView();//If something wrong happens, automatically sign in as cashier to prevent any security breaches.
         }
     }
@@ -59,7 +59,7 @@ public final class PageNavigation {
         primaryStage.show();
     }
 
-    public static void showAdminMenuView() {
+    public static void showAdministratorMenuView() {
         AdministratorMainMenuView adminMainMenu = new AdministratorMainMenuView();
         Scene scene = adminMainMenu.createScene(primaryStage);
         primaryStage.setScene(scene);
@@ -75,7 +75,7 @@ public final class PageNavigation {
         primaryStage.show();
     }
 
-    public static void showCashierInfo(Manager manager) {
+    public static void showManagerInfo(Manager manager) {
         ManagerInfoView managerInfo = new ManagerInfoView(manager);
         Scene scene = managerInfo.createScene(primaryStage);
         primaryStage.setScene(scene);
@@ -83,7 +83,7 @@ public final class PageNavigation {
         primaryStage.show();
     }
 
-    public static void showCashierInfo(Administrator admin) {
+    public static void showAdministratorInfo(Administrator admin) {
         AdministratorInfoView adminInfo = new AdministratorInfoView(admin);
         Scene scene = adminInfo.createScene(primaryStage);
         primaryStage.setScene(scene);

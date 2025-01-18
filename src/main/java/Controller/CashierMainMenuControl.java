@@ -9,7 +9,7 @@ public class CashierMainMenuControl {
     private Cashier cashier;
 
     public CashierMainMenuControl() {
-        cashier = getCashierInfo();
+        //cashier = getCashierInfo();
     }
 
     public void handleLogOut() {
