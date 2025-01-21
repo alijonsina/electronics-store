@@ -1,17 +1,16 @@
 package Controller;
 
-import Model.Cashier;
+import Model.Manager;
 import View.PageNavigation;
 import DataAccessObject.UserFileAccess;
 import java.io.IOException;
 
-public class CashierMainMenuControl {
-
-    private Cashier cashier;
+public class ManagerMainMenuControl {
+    private Manager manager;
     private UserFileAccess dao = new UserFileAccess();
 
-    public CashierMainMenuControl(String username) throws IOException, ClassNotFoundException {
-        cashier = (Cashier) dao.viewUserInfo(username);
+    public ManagerMainMenuControl(String username) throws IOException, ClassNotFoundException {
+        manager = (Manager) dao.viewUserInfo(username);
     }
 
     public void handleLogOut() {
@@ -19,6 +18,6 @@ public class CashierMainMenuControl {
     }
 
     public void handleViewUserInfo() {
-        PageNavigation.showCashierInfo(cashier);
+        PageNavigation.showManagerInfo(manager);
     }
 }

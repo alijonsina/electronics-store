@@ -39,7 +39,7 @@ public final class PageNavigation {
     public static void showMainMenuView(String userType, String username) throws IOException, ClassNotFoundException {
         switch (userType) {
             case "Cashier" -> showCashierMenuView(username);
-            case "Manager" -> showManagerMenuView();
+            case "Manager" -> showManagerMenuView(username);
             case "Administrator" -> showAdministratorMenuView();
             default -> showCashierMenuView(username);//If something wrong happens, automatically sign in as cashier to prevent any security breaches.
         }
@@ -53,8 +53,8 @@ public final class PageNavigation {
         primaryStage.show();
     }
 
-    public static void showManagerMenuView() {
-        ManagerMainMenuView manMainMenu = new ManagerMainMenuView();
+    public static void showManagerMenuView(String username) throws IOException, ClassNotFoundException {
+        ManagerMainMenuView manMainMenu = new ManagerMainMenuView(username);
         Scene scene = manMainMenu.createScene(primaryStage);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Manager");

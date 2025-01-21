@@ -1,5 +1,7 @@
 package View;
 
+import Controller.ManagerInfoController;
+import Model.Cashier;
 import Model.Manager;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -8,8 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class ManagerInfoView {
+
     private Manager manager;
+    private ManagerInfoController control = new ManagerInfoController();
+
 
 
     public ManagerInfoView(Manager manager) {
@@ -32,7 +39,13 @@ public class ManagerInfoView {
         });
 
         backButton.setOnAction(e -> {
-
+            try {
+                control.handleBackButton(manager.getUsername());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         GridPane grid = new GridPane();

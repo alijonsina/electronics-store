@@ -1,6 +1,6 @@
 package View;
 
-import Controller.CashierMainMenuControl;
+import Controller.ManagerMainMenuControl;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,11 +9,17 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import Model.Manager;
 
 import java.io.IOException;
 
 public class ManagerMainMenuView {
 
+    private ManagerMainMenuControl control;
+
+    public ManagerMainMenuView(String username) throws IOException, ClassNotFoundException {
+        control = new ManagerMainMenuControl(username);
+    }
 
     public Scene createScene(Stage primaryStage) {
 
@@ -26,20 +32,12 @@ public class ManagerMainMenuView {
 
         // Add action handlers
         viewUserInfo.setOnAction(e -> {
-            System.out.println("Viewing user info...");
+            control.handleViewUserInfo();
         });
 
-//        logOut.setOnAction(e -> {
-//            CashierMainMenuControl controller = null;
-//            try {
-//                controller = new ManagerMainMenuControl();
-//            } catch (IOException ex) {
-//                throw new RuntimeException(ex);
-//            } catch (ClassNotFoundException ex) {
-//                throw new RuntimeException(ex);
-//            }
-//            controller.handleLogOut();
-//        });
+        logOut.setOnAction(e -> {
+            control.handleLogOut();
+        });
 
         // Add MenuItems to the MenuButton
         menuButton.getItems().addAll(viewUserInfo, logOut);
