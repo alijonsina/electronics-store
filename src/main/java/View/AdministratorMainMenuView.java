@@ -3,6 +3,7 @@ package View;
 import Controller.AdministratorMainMenuControl;
 import Controller.ManagerMainMenuControl;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
@@ -42,27 +43,26 @@ public class AdministratorMainMenuView {
         menuButton.getItems().addAll(viewUserInfo, logOut);
 
         // Create three buttons for center-left, center, and center-right
-        Button leftButton = new Button("Left Button");
-        Button rightButton = new Button("Right Button");
-
-        // Add buttons in a horizontal choice bar
-        HBox buttons = new HBox(leftButton, rightButton);
+        Button createBillButton = new Button("Create a New Bill");
+        Button viewBillsButton = new Button("View Today's Bills");
 
         // Create the layout using BorderPane
-
         BorderPane borderPane = new BorderPane();
 
-        // Add padding to the BorderPane (push contents away from the borders)
-        borderPane.setPadding(new Insets(20)); // Adds 20 pixels of padding on all sides
+        // Create button layout using VBox
+        HBox hbox = new HBox(15,  createBillButton, viewBillsButton);
 
         // Place the MenuButton in the top-left corner
         borderPane.setTop(menuButton);
 
-        // Place the buttons in the appropriate positions
-        borderPane.setCenter(buttons);  // Center button
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setPadding(new Insets(20));
+
+        borderPane.setCenter(hbox);
 
         // Set the scene and stage
-        Scene scene = new Scene(borderPane, 400, 200);
+        Scene scene = new Scene(borderPane, 300, 200);
+
         return scene;
     }
 }

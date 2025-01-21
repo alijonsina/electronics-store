@@ -39,7 +39,13 @@ public class AdministratorInfoView {
         });
 
         backButton.setOnAction(e -> {
-
+            try {
+                control.handleBackButton(admin.getUsername());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         GridPane grid = new GridPane();

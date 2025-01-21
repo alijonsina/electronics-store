@@ -1,7 +1,6 @@
 package View;
 
 import Controller.CashierMainMenuControl;
-import Model.Cashier;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
