@@ -1,7 +1,5 @@
 package dao;
 
-
-
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,183 +7,117 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import Model.Item;
+import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import Model.Item;
 
 public class ItemDAO {
 
-	private static final File ITEMS_FILE = new File("src/file_handling/items.dat");
-	
-	public static boolean addItem(Item item) {
-		try(FileOutputStream outputStream = new FileOutputStream(ITEMS_FILE, true)) {
+	public static final String FILE_PATH = "items.dat";
+	private static final File DATA_FILE = new File(FILE_PATH);
+
+	// is observable-> UI components can bind to this list to update automatically
+	// when the list changes.
+	private final ObservableList<Item> items = FXCollections.observableArrayList();
+
+	public ObservableList<Item> getAll() {
+		if (items.isEmpty()) {
+			loadCountriesFromFile();
+		}
+		return items;
+	}
+
+	// reads the serialized item objects from the file
+	// and adds them to the items list.
+	private void loadCountriesFromFile() {
+		try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
+			while (true) {
+				Item item = (Item) inputStream.readObject();
+				items.add(item);
+			}
+		} catch (EOFException ignored) {
+		} catch (IOException | ClassNotFoundException ex) {
+			// log to a file
+			System.out.println(ex.getMessage());
+		}
+	}
+
+	// creates a new item by writing it to the file
+	public boolean create(Item item) {
+
+		// FileOutputStream is an append mode -> true flag
+		try (FileOutputStream outputStream = new FileOutputStream(DATA_FILE, true)) {
+
 			ObjectOutputStream writer;
-			
-			if (ITEMS_FILE.length()>0) {
-				writer = new ItemObjectOutputStream(outputStream);
+
+			// uses an ObjectOutputStream to serialize the country object
+			// and append it to the file.
+			if (DATA_FILE.length() > 0) { // optional
+				writer = new HeaderlessObjectOutputStream(outputStream); // optional
 			} else {
 				writer = new ObjectOutputStream(outputStream);
 			}
+
+			// new country is added at the end of the file
 			writer.writeObject(item);
-			writer.close();
+
+			items.add(item);
+
 			return true;
+
 		} catch (IOException ex) {
-			System.out.println("Error adding item to file: " + ex.getMessage());
 			return false;
 		}
 	}
-	
-	
-	public static Item searchItems(int id)
-	{
-		try(ObjectInputStream reader = new ObjectInputStream(new FileInputStream(ITEMS_FILE))) {
-			while(true) {
-				try {
-					Item item = (Item) reader.readObject();
-					if(item.getItemID() == id) {
-						return item;
-					}
-					
-					} catch (EOFException e) {
-						break;
-				}
-			}
-		} catch(IOException | ClassNotFoundException e) {
-			System.out.println("Error reading file" +e.getMessage());
-		}
-		
-		return null;
-	}
-	
-	public static boolean deleteItems(int id) throws FileOperationException
-	{
-		if(!ITEMS_FILE.exists() || ITEMS_FILE.length() == 0)
-		{
-			throw new FileOperationException("File does not exist or is empty");
-		}
-		
-		boolean itemDeleted = false;
-		File tempfile = new File("src/file_handling/temp_items.dat");
-		
-		try(
-			ObjectInputStream reader = new ObjectInputStream(new FileInputStream(ITEMS_FILE));
-			ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(tempfile))
-		) {
-			while(true) {
-				try {
-					Item item = (Item) reader.readObject();
-					if (item.getItemID() == id) {
-						itemDeleted = true;
-					} else {
-						writer.writeObject(item);
-					}
-				} catch(EOFException e) {
-					break;
-				}
-			}
-			
-		} catch(IOException | ClassNotFoundException e)
-		{
-			throw new FileOperationException("Error processing file: " + e.getMessage());
-		}
-		
-		if(!itemDeleted) {
-			if (tempfile.exists()) {
-	            tempfile.delete();
-	        }
-			throw new FileOperationException("Item with ID "+id+" not found");
-		}
-		
-	    try {
-	        if (ITEMS_FILE.exists() && !ITEMS_FILE.delete()) {
-	            throw new FileOperationException("Unable to delete the original file.");
-	        }
-	        if (!tempfile.renameTo(ITEMS_FILE)) {
-	            throw new FileOperationException("Error replacing the original file. Debug paths:\n"
-	                + "Original File: " + ITEMS_FILE.getAbsolutePath() + "\n"
-	                + "Temp File: " + tempfile.getAbsolutePath());
-	        }
-	    } catch (SecurityException e) {
-	        throw new FileOperationException("Security exception while replacing files: " + e.getMessage());
-	    }
-		
-		return true;
-	}
-	
-	public static boolean editItemField(int id, String field, Object newValue) throws FileOperationException {
-		if(!ITEMS_FILE.exists() || ITEMS_FILE.length() == 0)
-		{
-			throw new FileOperationException("File does not exist or is empty");
-			//return false;
-		}
-		
-		boolean itemUpdated = false;
-		File tempfile = new File("src/file_handling/temp_items.dat");
-		
-		try(
-				ObjectInputStream reader = new ObjectInputStream(new FileInputStream(ITEMS_FILE));
-				ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(tempfile))
-			) {
-			while(true) {
-				try {
-					Item item = (Item) reader.readObject();
-					if(item.getItemID() == id) {
-	                    switch (field.toLowerCase()) {
-                        case "name":
-                            item.setName((String) newValue);
-                            break;
-                        case "cost":
-                            item.setCost((int) newValue);
-                            break;
-                        case "retailprice":
-                            item.setRetailPrice((int) newValue);
-                            break;
-                        case "sectorcode":
-                            item.setSectorCode((int) newValue);
-                            break;
-                        case "sid":
-                            item.setSId((int) newValue);
-                            break;
-                        case "nrofstock":
-                            item.setNrOfStock((int) newValue);
-                            break;
-                        default:
-                            throw new FileOperationException("Invalid field name: " + field);
-	                    }
-	                    itemUpdated = true;
-					}
-					writer.writeObject(item);
-				} catch (EOFException e) {
-					break;
-				}
-			}
-			
-		} catch (IOException | ClassNotFoundException e) {
-			throw new FileOperationException("Error proccessing file: "+e.getMessage());
-		}
-		
-		if (!itemUpdated) {
-		    if (tempfile.exists()) {
-		        tempfile.delete(); // Clean up temp file if no item was updated
-		    }
-		    throw new FileOperationException("Item with ID " + id + " not found.");
-		}
 
-		try {
-		    // Ensure the original file is deleted before renaming
-		    if (ITEMS_FILE.exists() && !ITEMS_FILE.delete()) {
-		        throw new FileOperationException("Unable to delete the original file.");
-		    }
-		    if (!tempfile.renameTo(ITEMS_FILE)) {
-		        throw new FileOperationException("Error replacing original file.");
-		    }
-		} catch (SecurityException e) {
-		    throw new FileOperationException("Security exception: " + e.getMessage());
+	// It re-writes all countries to the file except the one being deleted
+	// and then removes the country from the countries list.
+	public boolean delete(Item item) {
+
+		// FileOutputStream is not an append mode
+		try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
+			for (Item c : items) {
+				if (!c.equals(item)) {
+					outputStream.writeObject(c);
+				}
+			}
+			items.remove(item);
+
+			return true;
+
+		} catch (IOException ex) {
+			return false;
 		}
-		
-		return true;
-		
 	}
 
+	// writing all items back to the file except
+	// for those in the itemsToRemove list.
+	public boolean deleteAll(List<Item> countriesToRemove) {
+		try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
+			for (Item c : items) {
+				if (!countriesToRemove.contains(c)) {
+					outputStream.writeObject(c);
+				}
+			}
+			items.removeAll(countriesToRemove);
+			return true;
+		} catch (IOException ex) {
+			return false;
+		}
+	}
+
+	// writing all items from the countries list back to the file.
+	public boolean updateAll() {
+
+		try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
+			for (Item c : items) {
+				outputStream.writeObject(c);
+			}
+			return true;
+		} catch (IOException ex) {
+			return false;
+		}
+	}
 }
-
