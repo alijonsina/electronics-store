@@ -23,6 +23,7 @@ public class UserFileAccess {
         if (!file.exists()) {
             try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
                 oos.writeObject(new ArrayList<User>()); // Create an empty user list
+                System.out.println("New user file created.");
             }
         }
     }
@@ -32,13 +33,13 @@ public class UserFileAccess {
         List<User> users = readUsers();
         for (User u : users) {
             if (u.getUsername().equals(user.getUsername())) {
-                System.out.println("User already exists.");  // display a message in model layer
+                System.out.println("User already exists."); // Display a message
                 return;
             }
         }
         users.add(user);
         writeUsers(users);
-        System.out.println("User added: " + user);  // user added successfully in model
+        System.out.println("User added: " + user); // Confirm user added
     }
 
     // Method to change a user's password
@@ -74,11 +75,12 @@ public class UserFileAccess {
             if (users.get(i).getUsername().equals(user.getUsername())) {
                 users.set(i, user);
                 writeUsers(users);
+                System.out.println("User modified: " + user.getUsername());
                 return;
             }
         }
+        System.out.println("User not found: " + user.getUsername());
     }
-
 
     // Helper method to read users from the binary file
     public List<User> readUsers() throws IOException, ClassNotFoundException {
@@ -87,6 +89,7 @@ public class UserFileAccess {
             return new ArrayList<>();
         }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            System.out.println("Reading users from file.");
             return (List<User>) ois.readObject();
         }
     }
@@ -95,14 +98,15 @@ public class UserFileAccess {
     public void writeUsers(List<User> users) throws IOException {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             oos.writeObject(users);
+            System.out.println("Users written to file.");
         }
     }
 
     public String confirmLogIn(String userType, String username, String password) throws IOException, ClassNotFoundException {
         List<User> users = readUsers();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUsername().equals(username) && users.get(i).getLvlOfAccess().equals(userType)) {
-                if (users.get(i).getPassword().equals(password)) {
+        for (User user : users) {
+            if (user.getUsername().equals(username) && user.getLvlOfAccess().equals(userType)) {
+                if (user.getPassword().equals(password)) {
                     return "Login Authorized";
                 } else {
                     return "Incorrect Password";
@@ -114,11 +118,12 @@ public class UserFileAccess {
 
     public User viewUserInfo(String username) throws IOException, ClassNotFoundException {
         List<User> users = readUsers();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUsername().equals(username)) {
-                return users.get(i);
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
             }
         }
+        System.out.println("User not found: " + username);
         return null;
     }
 }

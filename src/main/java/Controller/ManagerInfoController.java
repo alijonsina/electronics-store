@@ -1,7 +1,6 @@
 package Controller;
 
 import View.PageNavigation;
-
 import java.io.IOException;
 
 public class ManagerInfoController {

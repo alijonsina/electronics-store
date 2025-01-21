@@ -21,7 +21,7 @@ public class LogInControl {
         } else {
             switch(dao.confirmLogIn(userType, username, password)) {
                 case "User does not exist" -> {return "User does not exist";}
-                case "Incorrrect password" -> {return "Incorrect password";}
+                case "Incorrect password" -> {return "Incorrect password";}
                 case "Login Authorized" -> {PageNavigation.showMainMenuView(userType, username); return "Successful login";}
                 default -> {return "Unknown error";}
             }

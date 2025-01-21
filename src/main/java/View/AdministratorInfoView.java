@@ -1,29 +1,35 @@
 package View;
 
+import Controller.AdministratorInfoController;
+import Controller.AdministratorMainMenuControl;
+import Controller.ManagerInfoController;
 import Model.Administrator;
+import Model.Manager;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import java.io.IOException;
 
 public class AdministratorInfoView {
 
-    private Administrator administrator;
+    private Administrator admin;
+    private AdministratorInfoController control = new AdministratorInfoController();
 
 
     public AdministratorInfoView(Administrator administrator) {
-        this.administrator = administrator;
+        this.admin = administrator;
     }
 
     public Scene createScene(Stage primaryStage) {
 
-        Label nameLabel = new Label("Name: " + administrator.getName() + administrator.getSurname());
-        Label emailLabel = new Label("E-mail: " + administrator.getEmail());
-        Label dateOfBirthLabel = new Label("Born: " + administrator.getDateOfBirth().getDay() + "/" + administrator.getDateOfBirth().getMonth() + "/" + administrator.getDateOfBirth().getYear());
-        Label phoneNrLabel = new Label(administrator.getPhoneNr() + "");
-        Label salaryLabel = new Label(administrator.getSalary() + "");
+        Label nameLabel = new Label("Name: " + admin.getName() + admin.getSurname());
+        Label emailLabel = new Label("E-mail: " + admin.getEmail());
+        Label dateOfBirthLabel = new Label("Born: " + admin.getDateOfBirth().getDay() + "/" + admin.getDateOfBirth().getMonth() + "/" + admin.getDateOfBirth().getYear());
+        Label phoneNrLabel = new Label(admin.getPhoneNr() + "");
+        Label salaryLabel = new Label(admin.getSalary() + "");
 
         Button changePasswordButton = new Button("Change Password");
         Button backButton = new Button("Back");

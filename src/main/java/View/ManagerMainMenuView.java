@@ -9,8 +9,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import Model.Manager;
-
 import java.io.IOException;
 
 public class ManagerMainMenuView {
