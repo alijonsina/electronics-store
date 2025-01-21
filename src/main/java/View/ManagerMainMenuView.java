@@ -10,6 +10,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class ManagerMainMenuView {
 
 
@@ -27,10 +29,17 @@ public class ManagerMainMenuView {
             System.out.println("Viewing user info...");
         });
 
-        logOut.setOnAction(e -> {
-            CashierMainMenuControl controller = new CashierMainMenuControl();
-            controller.handleLogOut();
-        });
+//        logOut.setOnAction(e -> {
+//            CashierMainMenuControl controller = null;
+//            try {
+//                controller = new ManagerMainMenuControl();
+//            } catch (IOException ex) {
+//                throw new RuntimeException(ex);
+//            } catch (ClassNotFoundException ex) {
+//                throw new RuntimeException(ex);
+//            }
+//            controller.handleLogOut();
+//        });
 
         // Add MenuItems to the MenuButton
         menuButton.getItems().addAll(viewUserInfo, logOut);

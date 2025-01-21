@@ -27,8 +27,8 @@ public class AdministratorMainMenuView {
         });
 
         logOut.setOnAction(e -> {
-            CashierMainMenuControl controller = new CashierMainMenuControl();
-            controller.handleLogOut();
+            //CashierMainMenuControl controller = new CashierMainMenuControl();
+            //controller.handleLogOut();
         });
 
         // Add MenuItems to the MenuButton

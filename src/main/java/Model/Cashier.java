@@ -1,14 +1,16 @@
 package Model;
 
+import java.util.Date;
+
 public class Cashier extends User{
 
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
     private int nrOfBill;
     private String sectorCode;
     private Bill[] bill;
 
-    public Cashier(int nrOfBill, String sectorCode, Bill[] bill) {
-        super();
+    public Cashier(String username, String password, String name, String surname, Date dateOfBirth, int phoneNr, String email, int salary, String lvlOfAccess, int nrOfBill, String sectorCode, Bill[] bill) {
+        super(username, password, name, surname, dateOfBirth, phoneNr, email, salary, lvlOfAccess);
         this.nrOfBill = nrOfBill;
         this.sectorCode = sectorCode;
         this.bill = bill;

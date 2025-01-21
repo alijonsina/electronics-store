@@ -6,6 +6,8 @@ import Model.Manager;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /*This class exists to make the code more modular and clean.
 We move all the page navigations to this class so that all the other classes
 only call the methods rather than implementing them.*/
@@ -34,17 +36,17 @@ public final class PageNavigation {
         primaryStage.show();
     }
 
-    public static void showMainMenuView(String userType) {
+    public static void showMainMenuView(String userType, String username) throws IOException, ClassNotFoundException {
         switch (userType) {
-            case "Cashier" -> showCashierMenuView();
+            case "Cashier" -> showCashierMenuView(username);
             case "Manager" -> showManagerMenuView();
             case "Administrator" -> showAdministratorMenuView();
-            default -> showCashierMenuView();//If something wrong happens, automatically sign in as cashier to prevent any security breaches.
+            default -> showCashierMenuView(username);//If something wrong happens, automatically sign in as cashier to prevent any security breaches.
         }
     }
 
-    public static void showCashierMenuView() {
-        CashierMainMenuView cashMainMenu = new CashierMainMenuView();
+    public static void showCashierMenuView(String username) throws IOException, ClassNotFoundException {
+        CashierMainMenuView cashMainMenu = new CashierMainMenuView(username);
         Scene scene = cashMainMenu.createScene(primaryStage);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Cashier");

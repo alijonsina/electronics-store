@@ -9,9 +9,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class LogInView {
 
     private String userType;
+    private LogInControl control;
 
     public LogInView(String userType) {
         this.userType = userType;
@@ -39,10 +42,10 @@ public class LogInView {
             try {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
-                LogInControl controller = new LogInControl(userType);
-                String result = controller.handleSignUp(username, password);
 
-                if (result != null) {
+                String result = control.handleSignUp(username, password);
+
+                if (!result.equals("Login Authorized")) {
                     messageLabel.setText(result);
                     messageLabel.setStyle("-fx-text-fill: red;");
                 }
@@ -50,6 +53,10 @@ public class LogInView {
             } catch (EmptyFieldException ex) {
                 messageLabel.setText("All fields are required!");
                 messageLabel.setStyle("-fx-text-fill: red;");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
             }
         });
 

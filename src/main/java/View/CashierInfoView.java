@@ -1,5 +1,6 @@
 package View;
 
+import Controller.CashierInfoController;
 import Model.Cashier;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -8,14 +9,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class CashierInfoView {
 
     private Cashier cashier;
+    private CashierInfoController control = new CashierInfoController();
 
 
-    public CashierInfoView(Cashier cashier) {
-        this.cashier = cashier;
-    }
+    public CashierInfoView(Cashier cashier) {this.cashier = cashier;}
 
     public Scene createScene(Stage primaryStage) {
 
@@ -30,11 +32,17 @@ public class CashierInfoView {
         Button backButton = new Button("Back");
 
         changePasswordButton.setOnAction(e -> {
-
+            control.handleChangePasswordButton();
         });
 
         backButton.setOnAction(e -> {
-
+            try {
+                control.handleBackButton(cashier.getUsername());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         GridPane grid = new GridPane();

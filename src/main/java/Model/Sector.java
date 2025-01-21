@@ -3,7 +3,7 @@ package Model;
 import java.io.Serializable;
 
 public class Sector implements Serializable {
-    private static final long serialVersionUID = 6L;
+    private static final long serialVersionUID = 7L;
 
     private String sectorName;
     private int sectorCode;

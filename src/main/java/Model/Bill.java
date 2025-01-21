@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Bill implements Serializable {
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 6L;
 
     private int billID;
     private Date billDate;
