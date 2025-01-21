@@ -9,7 +9,7 @@ import java.io.IOException;
 public class CashierMainMenuControl {
 
     private Cashier cashier;
-    private UserFileAccess dao;
+    private UserFileAccess dao = new UserFileAccess();
 
     public CashierMainMenuControl(String username) throws IOException, ClassNotFoundException {
         cashier = (Cashier) dao.viewUserInfo(username);

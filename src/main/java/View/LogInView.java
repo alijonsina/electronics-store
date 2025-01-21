@@ -18,6 +18,7 @@ public class LogInView {
 
     public LogInView(String userType) {
         this.userType = userType;
+        control = new LogInControl(userType);
     }
 
     // Create the sign-up scene
@@ -42,7 +43,6 @@ public class LogInView {
             try {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
-
                 String result = control.handleSignUp(username, password);
 
                 if (!result.equals("Login Authorized")) {

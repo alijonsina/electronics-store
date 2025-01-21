@@ -10,11 +10,9 @@ import java.io.IOException;
 public class LogInControl {
     private String userType;
     private UserFileAccess dao = new UserFileAccess();
-    private String username;
 
-    public LogInControl(String userType, String username) {
+    public LogInControl(String userType) {
         this.userType = userType;
-
     }
 
     public String handleSignUp(String username, String password) throws EmptyFieldException, IOException, ClassNotFoundException {
