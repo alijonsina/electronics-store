@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class NewPasswordView {
@@ -21,7 +23,7 @@ public class NewPasswordView {
         this.userType = userType;
         this.username = username;
     }
-    public Scene createScene() {
+    public Scene createScene(Stage secondaryStage) {
 
         PasswordField passwordField = new PasswordField();
         passwordField.setPromptText("Enter Password");
@@ -46,6 +48,7 @@ public class NewPasswordView {
                     messageLabel.setText(result);
                     messageLabel.setStyle("-fx-text-fill: red;");
                 }
+                secondaryStage.close();
 
             } catch (EmptyFieldException ex) {
                 messageLabel.setText("All fields are required!");

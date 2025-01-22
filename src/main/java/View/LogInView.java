@@ -22,7 +22,7 @@ public class LogInView {
         control = new LogInControl(userType);
     }
 
-    // Create the sign-up scene
+    // Create the login scene
     public Scene createScene(Stage primaryStage) {
         // Create the UI elements
         Label titleLabel = new Label("Log In as " + (userType != null ? userType : "User"));
@@ -42,27 +42,30 @@ public class LogInView {
         // Set button action
         signUpButton.setOnAction(e -> {
             try {
-                String username = usernameField.getText();
-                System.out.println(username);
-                String password = passwordField.getText();
-                System.out.println(password);
+                String username = usernameField.getText().trim();
+                String password = passwordField.getText().trim();
+
+                if (username.isEmpty() || password.isEmpty()) {
+                    throw new EmptyFieldException();
+                }
+
                 String result = control.handleSignUp(username, password);
                 System.out.println(result);
 
-                if (!result.equals("Login Authorized")) {
+                if (result.equals("Successful login")) {
+                    messageLabel.setText("Login successful!");
+                    messageLabel.setStyle("-fx-text-fill: green;");
+                } else {
                     messageLabel.setText(result);
                     messageLabel.setStyle("-fx-text-fill: red;");
                 }
-
             } catch (EmptyFieldException ex) {
                 messageLabel.setText("All fields are required!");
                 messageLabel.setStyle("-fx-text-fill: red;");
-            } catch (IOException ex) {
-                System.out.println("runtime");
-                throw new RuntimeException(ex);
-            } catch (ClassNotFoundException ex) {
-                System.out.println("runtime");
-                throw new RuntimeException(ex);
+            } catch (IOException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+                messageLabel.setText("An unexpected error occurred.");
+                messageLabel.setStyle("-fx-text-fill: red;");
             }
         });
 
@@ -80,5 +83,4 @@ public class LogInView {
 
         return scene;
     }
-
 }

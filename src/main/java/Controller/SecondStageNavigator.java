@@ -22,7 +22,7 @@ public final class SecondStageNavigator {
 
     public static void showNewPasswordView(String userType, String username) {
         NewPasswordView passwordView = new NewPasswordView(userType, username);
-        Scene scene = passwordView.createScene();
+        Scene scene = passwordView.createScene(secondaryStage);
         secondaryStage.setScene(scene);
         secondaryStage.setTitle("Change Password");
         secondaryStage.show();

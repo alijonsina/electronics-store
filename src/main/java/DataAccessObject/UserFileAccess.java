@@ -28,22 +28,27 @@ public class UserFileAccess {
     }
 
     // Method to add a user
-    public void addUser(User user) throws IOException, ClassNotFoundException  {
+    public void addUser(User user) throws IOException, ClassNotFoundException {
 
         List<User> users = readUsers();
-        System.out.println(users.size());
-        for (User u : users) {
-            if (u.getUsername().equals(user.getUsername())) {
-                System.out.println("User already exists: " + user.getUsername());
-                return;
+        if (users == null) {
+            users = new ArrayList<>();
+            users.add(user);
+            writeUsers(users);
+        } else {
+            for (User u : users) {
+                if (u.getUsername().equals(user.getUsername())) {
+                    System.out.println("User already exists: " + user.getUsername());
+                    return;
+                }
             }
-        }
-        users.add(user);
-        System.out.println(users.size());
-        writeUsers(users);
-        System.out.println("User added: " + user.getUsername());
-    }
+            users.add(user);
+            System.out.println(users.size());
+            writeUsers(users);
+            System.out.println("User added: " + user.getUsername());
 
+        }
+    }
     // Method to change a user's password
     public String changePassword(String username, String newPassword) {
         try {
@@ -99,9 +104,6 @@ public class UserFileAccess {
     public String confirmLogIn(String userType, String username, String password) {
         try {
             List<User> users = readUsers();
-            if(users.isEmpty()) {
-                return "what the actual fuck";
-            }
             System.out.println("reading users");
             for (int i = 0; i < users.size(); i++) {
                 System.out.println(users.get(i).getLvlOfAccess() + " " + users.get(i).getUsername() + " " + users.get(i).getPassword());
@@ -141,15 +143,13 @@ public class UserFileAccess {
     private List<User> readUsers() throws IOException, ClassNotFoundException {
         File file = new File(FILE_NAME);
         if (!file.exists() || file.length() == 0) {
-            System.out.println("File does not exist or is empty. Creating a new user file.");
             createNewUserFile();
-            return new ArrayList<>();
+            return null;
         }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             return (List<User>) ois.readObject();
         } catch (InvalidClassException | EOFException e) {
             System.out.println("File is corrupted or incompatible. Recreating file...");
-            createNewUserFile();
             return new ArrayList<>();
         }
     }

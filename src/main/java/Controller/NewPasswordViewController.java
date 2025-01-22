@@ -18,6 +18,5 @@ public class NewPasswordViewController {
             String results = dao.changePassword(username, password);
             return results;
         }
-
     }
 }
