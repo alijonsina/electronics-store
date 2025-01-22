@@ -23,6 +23,7 @@ public class Item implements Serializable {
 	private transient IntegerProperty sectorCode;
 	private transient IntegerProperty sID;
 	private transient IntegerProperty nrOfStock;
+	private transient IntegerProperty quantity;
 
 	public Item(int itemID, String name, int cost, int retailPrice,  int sectorCode, int sID, int nrOfStock) {
 		this.itemID = new SimpleIntegerProperty(itemID);
@@ -32,6 +33,9 @@ public class Item implements Serializable {
 		this.sectorCode = new SimpleIntegerProperty(sectorCode);	
 		this.sID = new SimpleIntegerProperty(sID);
 		this.nrOfStock = new SimpleIntegerProperty(nrOfStock);
+	}
+	
+	public Item() {
 	}
 
 	public int getItemID() {return this.itemID.get();}
@@ -63,6 +67,10 @@ public class Item implements Serializable {
 
 	public void setNrOfStock(int nrOfStock) {this.nrOfStock.set(nrOfStock);}
 
+	public int getQuantity() {return this.quantity.get();}
+	
+	public void setQuantity(int quantity) {this.quantity.set(quantity);}
+	
 	@Override
 	public String toString() {return this.name.get();}
 
@@ -77,6 +85,7 @@ public class Item implements Serializable {
 		outputStream.writeInt(this.sectorCode.getValue());
 		outputStream.writeInt(this.sID.getValue());
 		outputStream.writeInt(this.nrOfStock.getValue());
+		outputStream.writeInt(this.quantity.getValue());
 	}
 
 	@Serial
@@ -90,6 +99,7 @@ public class Item implements Serializable {
 	    this.sectorCode = new SimpleIntegerProperty(inputStream.readInt());
 	    this.sID = new SimpleIntegerProperty(inputStream.readInt());
 	    this.nrOfStock = new SimpleIntegerProperty(inputStream.readInt());
+	    this.quantity = new SimpleIntegerProperty(inputStream.readInt());
 	}
 
 }
