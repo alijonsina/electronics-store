@@ -1,5 +1,9 @@
 package View;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -90,40 +94,112 @@ public class BillView extends BorderPane {
 		
 		
 		
-		itemIDColumn = new TableColumn<>("ID");
-		itemIDColumn.setMinWidth(30);
-		itemIDColumn.setCellValueFactory(new PropertyValueFactory<>("itemID"));
-		itemIDColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        itemIDColumn = new TableColumn<>("ID");
+        itemIDColumn.setMinWidth(50);
+        itemIDColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getItemID()));
+        itemIDColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(String.valueOf(item));
+                }
+            }
+        });
 
-		nameColumn = new TableColumn<>("Name");
-		nameColumn.setMinWidth(70);
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		
-		retailPriceColumn = new TableColumn<>("Retail Price");
-		retailPriceColumn.setMinWidth(70);
-		retailPriceColumn.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
-		retailPriceColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-		
-		sectorCodeColumn = new TableColumn<>("Sector Code");
-		sectorCodeColumn.setMinWidth(70);
-		sectorCodeColumn.setCellValueFactory(new PropertyValueFactory<>("sectorCode"));
-		sectorCodeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-		
-		sIDColumn = new TableColumn<>("Sector ID");
-		sIDColumn.setMinWidth(50);
-		sIDColumn.setCellValueFactory(new PropertyValueFactory<>("sID"));
-		sIDColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-		
-		nrOfStockColumn = new TableColumn<>("Nr. Of Stock");
-		nrOfStockColumn.setMinWidth(50);
-		nrOfStockColumn.setCellValueFactory(new PropertyValueFactory<>("nrOfStock"));
-		nrOfStockColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-		
-		quantityColumn = new TableColumn<>("Quantity");
-		quantityColumn.setMinWidth(30);
-		quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-		quantityColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+        nameColumn = new TableColumn<>("Name");
+        nameColumn.setMinWidth(70);
+        nameColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getName()));
+        nameColumn.setCellFactory(column -> new TableCell<Item, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item);
+                }
+            }
+        });
+
+        retailPriceColumn = new TableColumn<>("Retail Price");
+        retailPriceColumn.setMinWidth(70);
+        retailPriceColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRetailPrice()));
+        retailPriceColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
+
+        sectorCodeColumn = new TableColumn<>("Sector Code");
+        sectorCodeColumn.setMinWidth(70);
+        sectorCodeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getSectorCode()));
+        sectorCodeColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
+
+        sIDColumn = new TableColumn<>("Sector ID");
+        sIDColumn.setMinWidth(50);
+        sIDColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getSID()));
+        sIDColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
+
+        nrOfStockColumn = new TableColumn<>("Nr. Of Stock");
+        nrOfStockColumn.setMinWidth(50);
+        nrOfStockColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getNrOfStock()));
+        nrOfStockColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
+
+
+        quantityColumn = new TableColumn<>("Quantity");
+        quantityColumn.setMinWidth(30);
+        quantityColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getQuantity()));
+        quantityColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
 		
 		
 		tableView.getColumns().addAll(itemIDColumn, nameColumn, retailPriceColumn, sectorCodeColumn, sIDColumn, nrOfStockColumn);

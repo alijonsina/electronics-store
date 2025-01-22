@@ -14,6 +14,8 @@ import View.BillView;
 import Model.Bill;
 import Model.Item;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import Controller.ItemController;
@@ -190,7 +192,7 @@ public class BillController {
         // Generate bill metadata
         Bill bill = new Bill();
         bill.setBillID(generateRandomID());
-        bill.setBillDate(new Date());
+        bill.setBillDate(LocalDate.now());
         bill.setTotalPrice(total);
 
         billDetails.append("\nBill ID: ").append(bill.getBillID()).append("\n");
