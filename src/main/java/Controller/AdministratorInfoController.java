@@ -6,6 +6,7 @@ import java.io.IOException;
 public class AdministratorInfoController {
 
     Stage changePasswordStage;
+
     public void handleBackButton(String username) throws IOException, ClassNotFoundException {
         PageNavigation.showAdministratorMenuView(username);
     }

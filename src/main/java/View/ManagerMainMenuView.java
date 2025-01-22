@@ -10,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class ManagerMainMenuView {
@@ -17,51 +18,37 @@ public class ManagerMainMenuView {
     private ManagerMainMenuControl control;
 
     public ManagerMainMenuView(String username) throws IOException, ClassNotFoundException {
-        control = new ManagerMainMenuControl(username);
+        try {
+            control = new ManagerMainMenuControl(username);
+        } catch (IllegalArgumentException | ClassCastException e) {
+            System.err.println("Error initializing ManagerMainMenuControl: " + e.getMessage());
+            throw e;
+        }
     }
 
     public Scene createScene(Stage primaryStage) {
-
-        // Create User Info Button for the menu
         MenuButton menuButton = new MenuButton("User Info");
-
-        // Create MenuItems
         MenuItem viewUserInfo = new MenuItem("View User Info");
         MenuItem logOut = new MenuItem("Log Out");
 
-        // Add action handlers
-        viewUserInfo.setOnAction(e -> {
-            control.handleViewUserInfo();
-        });
+        viewUserInfo.setOnAction(e -> control.handleViewUserInfo());
+        logOut.setOnAction(e -> control.handleLogOut());
 
-        logOut.setOnAction(e -> {
-            control.handleLogOut();
-        });
-
-        // Add MenuItems to the MenuButton
         menuButton.getItems().addAll(viewUserInfo, logOut);
 
-        // Create three buttons for center-left, center, and center-right
-        Button createBillButton = new Button("Create a New Bill");
-        Button viewBillsButton = new Button("View Today's Bills");
+        Button viewStockButton = new Button("View Stock");
+        Button viewCashierPerformanceButton = new Button("Cashier Performance");
 
-        // Create the layout using BorderPane
         BorderPane borderPane = new BorderPane();
-
-        // Create button layout using VBox
-        HBox hbox = new HBox(15,  createBillButton, viewBillsButton);
-
-        // Place the MenuButton in the top-left corner
-        borderPane.setTop(menuButton);
-
+        HBox hbox = new HBox(15, viewStockButton, viewCashierPerformanceButton);
         hbox.setAlignment(Pos.CENTER);
         hbox.setPadding(new Insets(20));
 
+        borderPane.setTop(menuButton);
         borderPane.setCenter(hbox);
 
-        // Set the scene and stage
-        Scene scene = new Scene(borderPane, 300, 200);
+        viewStockButton.setOnAction(e -> control.handleViewStock());
 
-        return scene;
+        return new Scene(borderPane, 300, 200);
     }
 }

@@ -25,7 +25,7 @@ public class ManagerInfoView {
 
         Label nameLabel = new Label("Name: " + manager.getName() + manager.getSurname());
         Label emailLabel = new Label("E-mail: " + manager.getEmail());
-        Label dateOfBirthLabel = new Label("Born: " + manager.getDateOfBirth().getDay() + "/" + manager.getDateOfBirth().getMonth() + "/" + manager.getDateOfBirth().getYear());
+        Label dateOfBirthLabel = new Label("Born: " + manager.getDateOfBirth().getDayOfYear() + "/" + manager.getDateOfBirth().getMonth() + "/" + manager.getDateOfBirth().getYear());
         Label phoneNrLabel = new Label(manager.getPhoneNr() + "");
         Label salaryLabel = new Label(manager.getSalary() + "");
 

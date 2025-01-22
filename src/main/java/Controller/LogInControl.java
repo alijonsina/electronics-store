@@ -14,9 +14,11 @@ public class LogInControl {
     }
 
     public String handleSignUp(String username, String password) throws EmptyFieldException, IOException, ClassNotFoundException {
+        System.out.println(userType + " " + username + " " + password);
         if (username.isEmpty() || password.isEmpty()) {
             throw new EmptyFieldException();
         } else {
+            System.out.println(dao.confirmLogIn(userType, username, password));
             switch(dao.confirmLogIn(userType, username, password)) {
                 case "User does not exist" -> {return "User does not exist";}
                 case "Incorrect password" -> {return "Incorrect password";}

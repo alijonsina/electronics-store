@@ -9,13 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/*This class exists to make the code more modular and clean.
-We move all the page navigations to this class so that all the other classes
-only call the methods rather than implementing them.*/
-
 public final class PageNavigation {
 
-    private static Stage primaryStage; // Shared primaryStage for navigation
+    private static Stage primaryStage;
 
     public static void setPrimaryStage(Stage stage) {
         primaryStage = stage;
@@ -42,7 +38,7 @@ public final class PageNavigation {
             case "Cashier" -> showCashierMenuView(username);
             case "Manager" -> showManagerMenuView(username);
             case "Admin" -> showAdministratorMenuView(username);
-            default -> showCashierMenuView(username);//If something wrong happens, automatically sign in as cashier to prevent any security breaches.
+            default -> showCashierMenuView(username);
         }
     }
 
@@ -55,11 +51,16 @@ public final class PageNavigation {
     }
 
     public static void showManagerMenuView(String username) throws IOException, ClassNotFoundException {
-        ManagerMainMenuView manMainMenu = new ManagerMainMenuView(username);
-        Scene scene = manMainMenu.createScene(primaryStage);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Manager");
-        primaryStage.show();
+        try {
+            ManagerMainMenuView manMainMenu = new ManagerMainMenuView(username);
+            Scene scene = manMainMenu.createScene(primaryStage);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("Manager");
+            primaryStage.show();
+        } catch (IllegalArgumentException | ClassCastException e) {
+            System.err.println("Error loading manager menu: " + e.getMessage());
+            showMultiLogInView();
+        }
     }
 
     public static void showAdministratorMenuView(String username) throws IOException, ClassNotFoundException {
@@ -91,6 +92,19 @@ public final class PageNavigation {
         Scene scene = adminInfo.createScene(primaryStage);
         primaryStage.setScene(scene);
         primaryStage.setTitle(admin.getUsername());
+        primaryStage.show();
+    }
+
+    public static void showItemView(String username) {
+        ItemController itemControl = new ItemController(username);
+        Scene scene;
+        try {
+            scene = itemControl.getView().getScene();
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(username);
         primaryStage.show();
     }
 }

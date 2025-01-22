@@ -43,8 +43,11 @@ public class LogInView {
         signUpButton.setOnAction(e -> {
             try {
                 String username = usernameField.getText();
+                System.out.println(username);
                 String password = passwordField.getText();
+                System.out.println(password);
                 String result = control.handleSignUp(username, password);
+                System.out.println(result);
 
                 if (!result.equals("Login Authorized")) {
                     messageLabel.setText(result);
@@ -55,8 +58,10 @@ public class LogInView {
                 messageLabel.setText("All fields are required!");
                 messageLabel.setStyle("-fx-text-fill: red;");
             } catch (IOException ex) {
+                System.out.println("runtime");
                 throw new RuntimeException(ex);
             } catch (ClassNotFoundException ex) {
+                System.out.println("runtime");
                 throw new RuntimeException(ex);
             }
         });

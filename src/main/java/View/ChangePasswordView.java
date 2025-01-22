@@ -31,13 +31,12 @@ public class ChangePasswordView {
         PasswordField confirmPasswordField = new PasswordField();
         confirmPasswordField.setPromptText("Confirm Password");
 
+        Label messageLabel = new Label();
         Button confirm = new Button("Confirm");
         confirm.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-padding: 10px;");
-        VBox layout = new VBox(10, passwordField, confirmPasswordField, confirm);
+        VBox layout = new VBox(10, passwordField, confirmPasswordField, confirm, messageLabel);
         layout.setPadding(new Insets(20));
         layout.setAlignment(Pos.CENTER);
-
-        Label messageLabel = new Label();
 
         confirm.setOnAction(e -> {
             try {

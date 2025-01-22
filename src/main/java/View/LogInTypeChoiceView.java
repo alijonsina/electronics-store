@@ -11,10 +11,12 @@ import javafx.stage.Stage;
 public class LogInTypeChoiceView {
 
     private Stage primaryStage; // To switch between scenes
+    LoginTypeControl control;
 
     // Constructor to initialize primaryStage
     public LogInTypeChoiceView(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        control = new LoginTypeControl();
     }
 
     public Scene createScene(Stage primaryStage) {
@@ -29,17 +31,14 @@ public class LogInTypeChoiceView {
 
         // Set actions for each button
         adminButton.setOnAction(e -> {
-            LoginTypeControl control = new LoginTypeControl();
             control.handleLoginType("Admin");
         });
 
         managerButton.setOnAction(e -> {
-            LoginTypeControl control = new LoginTypeControl();
             control.handleLoginType("Manager");
         });
 
         cashierButton.setOnAction(e -> {
-            LoginTypeControl control = new LoginTypeControl();
             control.handleLoginType("Cashier");
         });
 
