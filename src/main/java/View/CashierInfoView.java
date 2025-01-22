@@ -32,8 +32,13 @@ public class CashierInfoView {
         Button backButton = new Button("Back");
 
         changePasswordButton.setOnAction(e -> {
-            control.handleChangePasswordButton();
-        });
+            try {
+                control.handleChangePasswordButton(cashier.getUsername());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }        });
 
         backButton.setOnAction(e -> {
             try {

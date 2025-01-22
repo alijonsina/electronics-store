@@ -1,8 +1,9 @@
-package View;
+package Controller;
 
 import Model.Administrator;
 import Model.Cashier;
 import Model.Manager;
+import View.*;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

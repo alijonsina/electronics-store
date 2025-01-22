@@ -1,10 +1,7 @@
 package View;
 
 import Controller.AdministratorInfoController;
-import Controller.AdministratorMainMenuControl;
-import Controller.ManagerInfoController;
 import Model.Administrator;
-import Model.Manager;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,7 +32,13 @@ public class AdministratorInfoView {
         Button backButton = new Button("Back");
 
         changePasswordButton.setOnAction(e -> {
-
+            try {
+                control.handleChangePasswordButton(admin.getUsername());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         backButton.setOnAction(e -> {

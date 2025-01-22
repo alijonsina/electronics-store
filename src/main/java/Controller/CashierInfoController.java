@@ -1,16 +1,21 @@
 package Controller;
 
-import View.PageNavigation;
-
+import javafx.stage.Stage;
 import java.io.IOException;
 
 public class CashierInfoController {
+
+    Stage changePasswordStage;
 
     public void handleBackButton(String username) throws IOException, ClassNotFoundException {
         PageNavigation.showCashierMenuView(username);
     }
 
-    public void handleChangePasswordButton() {
-
+    public void handleChangePasswordButton(String username) throws IOException, ClassNotFoundException {
+        changePasswordStage = new Stage();
+        changePasswordStage.setTitle("Change Password");
+        changePasswordStage.setResizable(false);
+        SecondStageNavigator.setSecondaryStage(changePasswordStage);
+        SecondStageNavigator.showChangePasswordView("Cashier", username);
     }
 }

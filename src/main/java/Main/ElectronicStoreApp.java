@@ -1,6 +1,6 @@
 package Main;
 
-import View.PageNavigation;
+import Controller.PageNavigation;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

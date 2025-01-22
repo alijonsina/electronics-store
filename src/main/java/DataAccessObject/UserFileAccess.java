@@ -43,17 +43,16 @@ public class UserFileAccess {
     }
 
     // Method to change a user's password
-    public void changePassword(String username, String newPassword) throws IOException, ClassNotFoundException {
+    public String changePassword(String username, String newPassword) throws IOException, ClassNotFoundException {
         List<User> users = readUsers();
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 user.setPassword(newPassword);
                 writeUsers(users);
-                System.out.println("Password updated for user: " + username);
-                return;
+                return "Password changed successfully";
             }
         }
-        System.out.println("User not found: " + username);
+        return "Something went wrong";
     }
 
     // Method to delete a user

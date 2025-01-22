@@ -1,8 +1,6 @@
 package Controller;
 
 import Exceptions.EmptyFieldException;
-import Model.User;
-import View.PageNavigation;
 import DataAccessObject.UserFileAccess;
 
 import java.io.IOException;

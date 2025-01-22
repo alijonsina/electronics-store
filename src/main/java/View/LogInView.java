@@ -1,6 +1,7 @@
 package View;
 
 import Controller.LogInControl;
+import Controller.PageNavigation;
 import Exceptions.EmptyFieldException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

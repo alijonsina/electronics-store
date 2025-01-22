@@ -1,8 +1,6 @@
 package Controller;
 
 import Model.Administrator;
-import Model.Manager;
-import View.PageNavigation;
 import DataAccessObject.UserFileAccess;
 import java.io.IOException;
 

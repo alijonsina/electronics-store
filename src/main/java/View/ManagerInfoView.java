@@ -33,8 +33,13 @@ public class ManagerInfoView {
         Button backButton = new Button("Back");
 
         changePasswordButton.setOnAction(e -> {
-
-        });
+            try {
+                control.handleChangePasswordButton(manager.getUsername());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }        });
 
         backButton.setOnAction(e -> {
             try {
