@@ -22,7 +22,7 @@ public class CashierInfoView {
         Label sectorLabel = new Label("Sector:" + cashier.getSectorCode());
         Label nameLabel = new Label("Name: " + cashier.getName() + cashier.getSurname());
         Label emailLabel = new Label("E-mail: " + cashier.getEmail());
-        Label dateOfBirthLabel = new Label("Born: " + cashier.getDateOfBirth().getDay() + "/" + cashier.getDateOfBirth().getMonth() + "/" + cashier.getDateOfBirth().getYear());
+        Label dateOfBirthLabel = new Label("Born: " + cashier.getDateOfBirth().getDayOfYear() + "/" + cashier.getDateOfBirth().getMonth() + "/" + cashier.getDateOfBirth().getYear());
         Label phoneNrLabel = new Label(cashier.getPhoneNr() + "");
         Label salaryLabel = new Label(cashier.getSalary() + "");
 

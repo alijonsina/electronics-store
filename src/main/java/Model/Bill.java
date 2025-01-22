@@ -19,6 +19,10 @@ public class Bill implements Serializable {
         this.totalPrice = totalPrice;
         this.item = item;
     }
+    
+    public Bill() {
+    	
+    }
 
     public int getBillID() {return billID;}
     public void setBillID(int billID) {this.billID = billID;}

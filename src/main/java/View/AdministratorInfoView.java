@@ -21,7 +21,7 @@ public class AdministratorInfoView {
 
         Label nameLabel = new Label("Name: " + administrator.getName() + administrator.getSurname());
         Label emailLabel = new Label("E-mail: " + administrator.getEmail());
-        Label dateOfBirthLabel = new Label("Born: " + administrator.getDateOfBirth().getDay() + "/" + administrator.getDateOfBirth().getMonth() + "/" + administrator.getDateOfBirth().getYear());
+        Label dateOfBirthLabel = new Label("Born: " + administrator.getDateOfBirth().getDayOfYear() + "/" + administrator.getDateOfBirth().getMonth() + "/" + administrator.getDateOfBirth().getYear());
         Label phoneNrLabel = new Label(administrator.getPhoneNr() + "");
         Label salaryLabel = new Label(administrator.getSalary() + "");
 

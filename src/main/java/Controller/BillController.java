@@ -7,9 +7,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import View.BillView;
+import Model.Bill;
 import Model.Item;
 import Controller.ItemController;
 import dao.ItemDAO;
+import dao.BillDAO;
 
 //the controller class that interacts with the model (data) and the view (UI).
 //it manages the user actions and updates the view or model accordingly.
@@ -27,6 +29,8 @@ public class BillController {
 
 	
 	private final ItemDAO itemDAO;
+	private final BillDAO billDAO;
+	
 
 	
 	public BillController() {
@@ -34,6 +38,7 @@ public class BillController {
 
 		this.view = new BillView();
 		itemDAO = new ItemDAO();
+		billDAO = new BillDAO();
 
 
 		this.view.getTableView().setItems(itemDAO.getAll());
@@ -118,7 +123,7 @@ public class BillController {
         Alert showAlert = new Alert(Alert.AlertType.WARNING);
         
         //Bill consrtuctor to be added
-        //Bill bill = new Bill();
+        Bill bill = new Bill();
         int total = 0;
         
         if (ItemBill.isEmpty()) {
@@ -145,6 +150,13 @@ public class BillController {
             ItemBill.clear();
             view.getBillView().refresh();
         }
+        
+        //bill.setBillID(bill.generateID);
+        //bill.setBillDate(bill.generateDate);
+        //bill.setTotalPrice(total);
+        billDAO.AddBillToFile(bill);
+        
+        
     }
 
     private void onShowBill() {
