@@ -4,11 +4,18 @@ import dao.ItemDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import View.BillView;
 import Model.Bill;
 import Model.Item;
+
+import java.util.Date;
+
 import Controller.ItemController;
 import dao.ItemDAO;
 import dao.BillDAO;
@@ -93,10 +100,13 @@ public class BillController {
 		
     private void onAddToBill() {
        ObservableList<Item> selectedItems = view.getTableView().getSelectionModel().getSelectedItems();
-       Alert showAlert = new Alert(Alert.AlertType.WARNING);
+       Alert alert = new Alert(Alert.AlertType.WARNING);
        
         if (ItemBill.isEmpty()) {
-            showAlert.setContentText("No Selection \n Please select an item to remove from the bill.");
+     	   alert.setTitle("No Selection");
+           alert.setHeaderText(null);
+           alert.setContentText("Please select an item to add to the bill.");
+           alert.showAndWait();
             return;
         }
         for (Item item : selectedItems) {
@@ -109,10 +119,13 @@ public class BillController {
 
     private void onRemoveFromBill() {
         ObservableList<Item> selectedItems = view.getBillView().getSelectionModel().getSelectedItems();
-        Alert showAlert = new Alert(Alert.AlertType.WARNING) ;
+    	Alert alert = new Alert(Alert.AlertType.WARNING);
         
         if (ItemBill.isEmpty()) {
-        	showAlert.setContentText("No Selection \n Please select an item to remove from the bill.");
+        	   alert.setTitle("No Selection");
+               alert.setHeaderText(null);
+               alert.setContentText("Please select an item to remove from the bill the bill.");
+               alert.showAndWait();
             return;
         }
         ItemBill.removeAll(selectedItems);
@@ -120,50 +133,116 @@ public class BillController {
     }
 
     private void onCloseBill() {
-        Alert showAlert = new Alert(Alert.AlertType.WARNING);
+    	Alert alert = new Alert(Alert.AlertType.WARNING);
         
         //Bill consrtuctor to be added
-        Bill bill = new Bill();
+        //Bill bill = new Bill();
         int total = 0;
         
         if (ItemBill.isEmpty()) {
-        	showAlert.setContentText("No Selection \n Please select an item to remove from the bill.");
+            alert.setTitle("No Selection");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select an item to add to the bill.");
+            alert.showAndWait();
             return;
         }
 
+        // Initialize bill details and total
+        StringBuilder billDetails = new StringBuilder("Bill Details:\n");
+        billDetails.append("+----------+----------------------+------------+--------+\n");
+        billDetails.append("| Quantity | Title                | Unit Price | Total  |\n");
+        billDetails.append("+----------+----------------------+------------+--------+\n");
+        
+        
+        
         for(Item item : ItemBill)
         {
-        	Item T_Item = new Item();
-        	T_Item = item;
+        	//Item T_Item = new Item();
+        	//T_Item = item;
         	
-        	total = (T_Item.getRetailPrice()*T_Item.getQuantity())+total;
+            int totalItemPrice = item.getRetailPrice() * item.getQuantity();
+            total += totalItemPrice;
+        	
+            item.setNrOfStock(item.getNrOfStock() - item.getQuantity()); // Update stock
+
+            billDetails.append(String.format("| %-8d | %-20s | %-10.2f | %-6.2f |\n",
+            		item.getQuantity(), item.getName(), (double) item.getRetailPrice(), (double) totalItemPrice));
+
+        	//total = (T_Item.getRetailPrice()*T_Item.getQuantity())+total;
+        	//T_Item.setNrOfStock(T_Item.getNrOfStock()-T_Item.getQuantity());
         } 
         //bill method to be implemented
         //total = bill.setTotal();
+        
+        billDetails.append("+----------+----------------------+------------+--------+\n");
+        billDetails.append(String.format("\nTotal Amount: %.2f\n", (double) total));
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Close Bill");
         alert.setHeaderText("Total Amount: " + total);
         alert.setContentText("Do you want to finalize the bill?");
 
         if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
-            ItemBill.clear();
-            view.getBillView().refresh();
+        //    ItemBill.clear();
+        //    view.getBillView().refresh();
+        	return;
         }
         
-        //bill.setBillID(bill.generateID);
-        //bill.setBillDate(bill.generateDate);
-        //bill.setTotalPrice(total);
+        // Generate bill metadata
+        Bill bill = new Bill();
+        bill.setBillID(generateRandomID());
+        bill.setBillDate(new Date());
+        bill.setTotalPrice(total);
+
+        billDetails.append("\nBill ID: ").append(bill.getBillID()).append("\n");
+        billDetails.append("Date: ").append(bill.getBillDate()).append("\n");
+
+        
+        // Display the bill in a new window
+        showBillInNewWindow(billDetails.toString());
+        
         billDAO.AddBillToFile(bill);
+        
+        // Clear the bill and refresh view
+        ItemBill.clear();
+        view.getBillView().refresh();
         
         
     }
+        //bill.setBillID(bill.generateID);
+        //bill.setBillDate(bill.generateDate);
+        //bill.setTotalPrice(total);
+        //billDAO.AddBillToFile(bill);
+        //bill.setUsername(wget);
+        
+        private int generateRandomID() {
+            return (int) (Math.random() * 100000);
+        }
+
+        private void showBillInNewWindow(String billDetails) {
+            Stage stage = new Stage();
+            stage.setTitle("Bill Details");
+
+            TextArea textArea = new TextArea(billDetails);
+            textArea.setEditable(false);
+            textArea.setWrapText(true);
+
+            VBox vbox = new VBox(textArea);
+            Scene scene = new Scene(vbox, 500, 400);
+
+            stage.setScene(scene);
+            stage.show();
+        }
+        
 
     private void onShowBill() {
         
-    	Alert showAlert = new Alert(Alert.AlertType.WARNING);
+    	Alert alert = new Alert(Alert.AlertType.WARNING);
     	if (ItemBill.isEmpty()) {
-    		showAlert.setContentText("No Selection \n Please select an item to remove from the bill.");
+          
+            alert.setTitle("No Selection");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select an item to remove from the bill.");
+            alert.showAndWait();
             return;
         }
 
@@ -177,7 +256,11 @@ public class BillController {
                 .append("\n");
         }
 
-        //showAlert("Bill Details", billDetails.toString(), Alert.AlertType.INFORMATION);
+
+        alert.setTitle("Bill Details");
+        alert.setHeaderText(null);
+        alert.setContentText(billDetails.toString());
+        alert.showAndWait();
     }
 
     

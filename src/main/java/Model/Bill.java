@@ -11,6 +11,7 @@ public class Bill implements Serializable {
     private int[] NrOfItem;
     private int totalPrice;
     private Item[] item;
+    private String username;
 
     public Bill(int billID, Date billDate, int[] NrOfItem, int totalPrice, Item[] item) {
         this.billID = billID;
@@ -34,4 +35,7 @@ public class Bill implements Serializable {
     public void setTotalPrice(int totalPrice) {this.totalPrice = totalPrice;}
     public Item[] getItem() {return item;}
     public void setItem(Item[] item) {this.item = item;}
+    public void setUsername(String username) {this.username = username;}
+    public String getUsername() {return username;}
+    
 }
