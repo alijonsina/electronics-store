@@ -1,10 +1,9 @@
 package View;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.ComboBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -12,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.util.converter.DoubleStringConverter;
 import Model.Item;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.beans.property.SimpleObjectProperty;
 
 
 public class ItemView  {
@@ -19,7 +19,7 @@ public class ItemView  {
     private final BorderPane borderPane = new BorderPane();
     private final Scene scene = new Scene(borderPane);
 
-    // TableView to display list of countries
+    // TableView to display list of items
     private final TableView<Item> tableView = new TableView<>();
 
     // Columns for the item
@@ -30,7 +30,6 @@ public class ItemView  {
     private final TableColumn<Item, Integer> sectorCodeColumn;
     private final TableColumn<Item, Integer> sIDColumn;
     private final TableColumn<Item, Integer> nrOfStockColumn;
-
 
     // Input fields for user to add item data
     private final TextField tfItemID = new TextField();
@@ -43,17 +42,14 @@ public class ItemView  {
     private final TextField tfSearch = new TextField();
     private final Button btnSearch = new Button("Search");
 
-    // *****New ProfileView
-    private final Scene profileScene = new Scene(new VBox(new Label("Hello!")), 300, 200);
-
-    // Buttons for adding, deleting, and updating countries
+    // Buttons for adding, deleting, and updating items
     private final Button btnAdd = new Button("Add");
     private final Button btnDelete = new Button("Delete");
     private final Button btnUpdate = new Button("Update");
     private final Button btnBack = new Button("Back");
 
     // constructor - when an object is created
-    @SuppressWarnings({"unchecked", "deprecation"})
+    @SuppressWarnings({ "unchecked", "deprecation" })
     public ItemView() {
 
         // Style the TableView to be editable and allow multiple selection
@@ -64,60 +60,109 @@ public class ItemView  {
 
         // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         // Initialize columns with headers and properties
-        // to bind to item model fields
         itemIDColumn = new TableColumn<>("ID");
         itemIDColumn.setMinWidth(50);
-
-        // **setCellValueFactory is used to specify which property
-        // **of the item model should be displayed in this column.
-
-        // new PropertyValueFactory<>("item") tells the TableView that
-        // this column should display data from the item property of the item
-        // object.
-        itemIDColumn.setCellValueFactory(new PropertyValueFactory<>("itemID"));
-        // how the data will be displayed and edited in the column.
-        itemIDColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        itemIDColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getItemID()));
+        itemIDColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
 
         nameColumn = new TableColumn<>("Name");
         nameColumn.setMinWidth(70);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         costColumn = new TableColumn<>("Cost");
         costColumn.setMinWidth(70);
-        costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-        costColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        costColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getCost()));
+        costColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
 
         retailPriceColumn = new TableColumn<>("Retail Price");
         retailPriceColumn.setMinWidth(70);
-        retailPriceColumn.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
-        retailPriceColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        retailPriceColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getRetailPrice()));
+        retailPriceColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
 
         sectorCodeColumn = new TableColumn<>("Sector Code");
         sectorCodeColumn.setMinWidth(70);
-        sectorCodeColumn.setCellValueFactory(new PropertyValueFactory<>("sectorCode"));
-        sectorCodeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        sectorCodeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getSectorCode()));
+        sectorCodeColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
 
         sIDColumn = new TableColumn<>("Sector ID");
         sIDColumn.setMinWidth(50);
-        sIDColumn.setCellValueFactory(new PropertyValueFactory<>("sID"));
-        sIDColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        sIDColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getSID()));
+        sIDColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
 
         nrOfStockColumn = new TableColumn<>("Nr. Of Stock");
         nrOfStockColumn.setMinWidth(50);
-        nrOfStockColumn.setCellValueFactory(new PropertyValueFactory<>("nrOfStock"));
-        nrOfStockColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        nrOfStockColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getQuantity()));
+        nrOfStockColumn.setCellFactory(column -> new TableCell<Item, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
 
         // Add columns to the table
         tableView.getColumns().addAll(itemIDColumn, nameColumn, costColumn, retailPriceColumn, sectorCodeColumn, sIDColumn, nrOfStockColumn);
-
 
         // Configure input fields
         tfItemID.setPromptText("Enter ID");
         tfName.setPromptText("Enter Name");
         tfCost.setPromptText("Enter Cost");
-        tfRetailPrice.setPromptText("Enter Retaial Price");
+        tfRetailPrice.setPromptText("Enter Retail Price");
         tfSectorCode.setPromptText("Enter Sector Code");
         tfSID.setPromptText("Enter Sector ID");
         tfNrOfStock.setPromptText("Enter Stock");
