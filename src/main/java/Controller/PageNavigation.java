@@ -107,4 +107,19 @@ public final class PageNavigation {
         primaryStage.setTitle(username);
         primaryStage.show();
     }
+
+    public static void showBillView(String username) {
+        BillController billControl = new BillController(username);
+        Scene scene;
+        try {
+            scene = billControl.getView().getScene();
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(username);
+        primaryStage.show();
+    }
+
+
 }

@@ -20,4 +20,8 @@ public class CashierMainMenuControl {
     public void handleViewUserInfo() {
         PageNavigation.showCashierInfo(cashier);
     }
+
+    public void handleCreateBIll() {
+        PageNavigation.showBillView(cashier.getUsername());
+    }
 }

@@ -142,6 +142,8 @@ public class UserFileAccess {
     // Helper method to read users from the binary file
     private List<User> readUsers() throws IOException, ClassNotFoundException {
         File file = new File(FILE_NAME);
+
+
         if (!file.exists() || file.length() == 0) {
             createNewUserFile();
             return null;

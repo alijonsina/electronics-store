@@ -46,6 +46,8 @@ public class CashierMainMenuView {
         Button createBillButton = new Button("Create a New Bill");
         Button viewBillsButton = new Button("View Today's Bills");
 
+        createBillButton.setOnAction(e -> {control.handleCreateBIll();});
+
         // Create the layout using BorderPane
         BorderPane borderPane = new BorderPane();
 

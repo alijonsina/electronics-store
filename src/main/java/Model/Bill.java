@@ -12,14 +12,18 @@ public class Bill implements Serializable {
     private int[] NrOfItem;
     private int totalPrice;
     private Item[] item;
+    private String username;
 
-    public Bill(int billID, LocalDate billDate, int[] NrOfItem, int totalPrice, Item[] item) {
+    public Bill(int billID, LocalDate billDate, int[] NrOfItem, int totalPrice, Item[] item, String username) {
         this.billID = billID;
         this.billDate = billDate;
         this.NrOfItem = NrOfItem;
         this.totalPrice = totalPrice;
         this.item = item;
+        this.username = username;
     }
+
+    public Bill() {}
 
     public int getBillID() { return billID; }
     public void setBillID(int billID) { this.billID = billID; }
@@ -35,6 +39,9 @@ public class Bill implements Serializable {
 
     public Item[] getItem() { return item; }
     public void setItem(Item[] item) { this.item = item; }
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
     @Serial
     private void writeObject(ObjectOutputStream outputStream) throws IOException {

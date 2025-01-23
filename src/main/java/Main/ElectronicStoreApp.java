@@ -23,6 +23,7 @@ public class ElectronicStoreApp extends Application {
 
             userFileAccess.addUser(manager);
             userFileAccess.addUser(cashier);
+            userFileAccess.addUser(admin);
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error while adding users: " + e.getMessage());
         }

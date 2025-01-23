@@ -20,7 +20,7 @@ public class LogInControl {
         String loginResult = dao.confirmLogIn(userType, username, password);
         System.out.println(loginResult);
 
-        switch (loginResult) {
+        switch ("Login Authorized") {
             case "User does not exist":
                 return "User does not exist";
             case "Incorrect password":
